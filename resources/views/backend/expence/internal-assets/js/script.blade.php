@@ -6,7 +6,7 @@
         serverSide:true,
         responsive:true,
         ajax:{
-          url:"{{route('user.index')}}"
+          url:"{{route('donor.index')}}"
         },
         columns:[
           {
@@ -28,14 +28,6 @@
             name:'mobile',
           },
           {
-            data:'role',
-            name:'role',
-          },
-          {
-            data:'isban',
-            name:'isban',
-          },
-          {
             data:'action',
             name:'action',
           }
@@ -46,38 +38,22 @@
 
 window.formRequest= function(){
     $('input,select').removeClass('is-invalid');
-    let name=$('#name').val();
-    let email=$('#email').val();
-    let password=$('#password').val();
-    let password_confirmation=$('#password-confirmation').val();
-    let adress=$('#adress').val();
-    let mobile=$('#mobile').val();
-    let status=$('#status').val();
-    var role = $('#role').select2('data');
+    let expence_area=$('#expence_area').val();
     let id=$('#id').val();
     let formData= new FormData();
-    formData.append('name',name);
-    formData.append('email',email);
-    formData.append('adress',adress);
-    formData.append('mobile',mobile);
-    formData.append('status',status);
-    if(role.length!=0){
-      formData.append('role',role[0].text);
-    }
-    formData.append('password',password);
-    formData.append('password_confirmation',password_confirmation);
-    $('#exampleModalLabel').text('দাতা হালনাগাত করুন');
+    formData.append('expence_area',expence_area);
+    $('#exampleModalLabel').text('ব্যয়ের খাত হালনাগাত করুন');
     if(id!=''){
       formData.append('_method','PUT');
     }
     //axios post request
     if (id==''){
-         axios.post("{{route('user.store')}}",formData)
+         axios.post("{{route('expence.store')}}",formData)
         .then(function (response){
             if(response.data.message){
                 toastr.success(response.data.message)
                 datatable.ajax.reload();
-                Clear();
+                clear();
                 $('#modal').modal('hide');
             }else if(response.data.error){
               var keys=Object.keys(response.data.error);
@@ -88,12 +64,12 @@ window.formRequest= function(){
             }
         })
     }else{
-      axios.post("{{URL::to('user/')}}/"+id,formData)
+      axios.post("{{URL::to('expence/')}}/"+id,formData)
         .then(function (response){
           if(response.data.message){
               toastr.success(response.data.message);
               datatable.ajax.reload();
-              Clear();
+              clear();
           }else if(response.data.error){
               var keys=Object.keys(response.data.error);
               keys.forEach(function(d){
@@ -105,14 +81,10 @@ window.formRequest= function(){
     }
 }
 $(document).delegate("#modalBtn", "click", function(event){
-    console.log('fire')
-    Clear();
+    clear();
     $('#exampleModalLabel').text('নতুন দাতা যুক্ত করুন');
-    $('.password').removeClass('d-none')
 });
 $(document).delegate(".editRow", "click", function(){
-    Clear()
-    $('.password').addClass('d-none')
     $('#exampleModalLabel').text('দাতা হালনাগাত করুন');
     let route=$(this).data('url');
     axios.get(route)
@@ -122,11 +94,8 @@ $(document).delegate(".editRow", "click", function(){
         if(key=='name'){
           $('#'+'name').val(data.data[key]);
         }
-        if(key=='isban'){
-          $('#status').val(data.data[key]);
-        }
-        if(key=='roles'){
-          $('#role').html("<option value='"+data.data.roles[0].id+"'>"+data.data.roles[0].name+"</option>");
+        if(key=='category_id'){
+          $('#category').val(data.data[key]).niceSelect('update');
         }
          $('#'+key).val(data.data[key]);
          $('#modal').modal('show');
@@ -158,35 +127,9 @@ $(document).delegate(".deleteRow", "click", function(){
       }
     })
 });
-function Clear(){
+function clear(){
   $("input").removeClass('is-invalid').val('');
   $(".invalid-feedback").text('');
-  $('input').val('');
-  $("select[name='status']").val('');
-  $("select[name='role']").text('Select').trigger('change');
+  $('form select').val('').niceSelect('update');
 }
-
-$('#role').select2({
-    theme:'bootstrap4',
-    placeholder:'select',
-    allowClear:true,
-    ajax:{
-      url:"{{URL::to('/get-role')}}",
-      type:'post',
-      dataType:'json',
-      delay:20,
-      data:function(params){
-        return {
-          searchTerm:params.term,
-          _token:"{{csrf_token()}}",
-          }
-      },
-      processResults:function(response){
-        return {
-          results:response,
-        }
-      },
-      cache:true,
-    }
-  })
 </script>

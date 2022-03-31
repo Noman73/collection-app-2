@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-
+use Auth;
 class userBaned
 {
     /**
@@ -16,7 +16,14 @@ class userBaned
      */
     public function handle(Request $request, Closure $next)
     {
-        dd($request);
+        if(Auth::check() && Auth::user()->isban){
+            $banned=Auth::user()->isban=='1';
+            Auth::logout();
+            if($banned==1){
+                $message="আপনার অ্যাকাউন্টটি বন্ধ রাখা হয়েছে .দয়া করে কতৃপক্ষের সাথে যোগাযোগ করুন";
+            }
+            return redirect()->route('login')->with('status',$message)->withErrors(['status'=>"আপনার অ্যাকাউন্টটি বন্ধ রাখা হয়েছে .দয়া করে কতৃপক্ষের সাথে যোগাযোগ করুন"]);
+        }
         return $next($request);
     }
 }

@@ -1,6 +1,5 @@
 <footer class="main-footer">
-    <strong>Copyright &copy; 2022 <a href="https://www.ongsho.com">Ongsho</a>.</strong>
-    All rights reserved.
+    <strong>Copyright &copy; SMRAGRO</strong>
 </footer>
 
   <!-- Control Sidebar -->

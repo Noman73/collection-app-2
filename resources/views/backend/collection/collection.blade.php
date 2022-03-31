@@ -84,7 +84,7 @@
                 <input type="hidden" id="id">
                 <div class="row">
                   <div class="col-12 col-md-6">
-                    <label for="recipient-name" class="col-form-label d-block">দাতা:</label>
+                    <label for="recipient-name" class="col-form-label d-block">নাম:</label>
                     <div class="input-group">
                       <select  class="form-control" id="donor" >
                         <option value="">select</option>

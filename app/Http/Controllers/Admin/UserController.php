@@ -42,7 +42,10 @@ class UserController extends Controller
               }
               return $role;
           })
-          ->rawColumns(['action'])->make(true);
+          ->addColumn('isban',function($get){
+            return ($get->isban==1? 'blocked': "active");
+        })
+          ->rawColumns(['action','role'])->make(true);
         }
         return view('backend.user.user');
     }
@@ -71,6 +74,7 @@ class UserController extends Controller
             'email'=>"required|email|max:200|min:1",
             'adress'=>"required|max:200|min:1",
             'mobile'=>"required|max:11|min:11|unique:users,mobile",
+            'status'=>"required|max:1",
             'password'=>"required|max:50|min:6|confirmed",
             'role'=>["required","max:50","min:1",new roleRule],
         ]);
@@ -80,6 +84,7 @@ class UserController extends Controller
             $user->adress=$request->adress;
             $user->mobile=$request->mobile;
             $user->email=$request->email;
+            $user->isban=$request->status;
             $user->password=Hash::make($request->password);
             $user->assignRole($request->role);
             $user->save();
@@ -109,7 +114,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return response()->json(User::find($id));
+        return response()->json(User::with('roles')->find($id));
     }
 
     /**
@@ -127,6 +132,7 @@ class UserController extends Controller
             'adress'=>"required|max:200|min:1",
             'mobile'=>"required|max:11|min:11|unique:users,mobile,".$id,
             'role'=>"required|max:50|min:1",
+            'status'=>"required|max:1|min:1",
         ]);
         if($validator->passes()){
             $user=User::find($id);
@@ -134,6 +140,7 @@ class UserController extends Controller
             $user->adress=$request->adress;
             $user->mobile=$request->mobile;
             $user->email=$request->email;
+            $user->isban=$request->status;
             $user->assignRole($request->role);
             $user->save();
             if ($user) {

@@ -63,7 +63,7 @@ class DonorController extends Controller
         $validator=Validator::make($request->all(),[
             'name'=>"required|max:200|min:1",
             'adress'=>"required|max:200|min:1",
-            'mobile'=>"required|max:200|min:1",
+            'mobile'=>"required|max:200|min:1|regex:/^([0-9]+)$/",
         ]);
         if($validator->passes()){
             $donor=new Donor;

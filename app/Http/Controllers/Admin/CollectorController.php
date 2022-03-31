@@ -45,6 +45,18 @@ class CollectorController extends Controller
         ->addColumn('various',function($get){
         return $get->collection->sum('various');
         })
+        ->addColumn('kristi_bandhob',function($get){
+          return $get->collection->sum('kristi_bandhob');
+          })
+        ->addColumn('sri_thakur_vog',function($get){
+          return $get->collection->sum('sri_thakur_vog');
+          })
+        ->addColumn('ananda_bazar',function($get){
+            return $get->collection->sum('ananda_bazar');
+          })
+        ->addColumn('various',function($get){
+          return $get->collection->sum('various');
+          })
         ->addColumn('totalrittik',function($get){
           $totalrittik=0;
           foreach($get->collection as $rtk){
@@ -104,6 +116,15 @@ class CollectorController extends Controller
     ->addColumn('various',function($get){
     return $get->collection->sum('various');
     })
+    ->addColumn('kristi_bandhob',function($get){
+      return $get->collection->sum('kristi_bandhob');
+      })
+    ->addColumn('sri_thakur_vog',function($get){
+      return $get->collection->sum('sri_thakur_vog');
+      })
+    ->addColumn('ananda_bazar',function($get){
+      return $get->collection->sum('ananda_bazar');
+      })
     ->addColumn('totalrittik',function($get){
       $totalrittik=0;
       foreach($get->collection as $rtk){

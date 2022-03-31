@@ -48,6 +48,7 @@
                     <th>ঠিকানা</th>
                     <th>মোবাইল</th>
                     <th>রোল</th>
+                    <th>স্টাটাস</th>
                     <th>এ্যাকশন</th>
                   </tr>
                 </thead>
@@ -110,6 +111,18 @@
                           <option value="">Select</option>
                       </select>
                       <div class="invalid-feedback" id="role_msg">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-8 mr-auto ml-auto">
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">স্টাটাস:</label>
+                      <select class="form-control" name="status" id="status">
+                          <option value="">Select</option>
+                          <option value="0">এ্যাকটিভ</option>
+                          <option value="1">ডিঅ্যাকটিভ</option>
+                      </select>
+                      <div class="invalid-feedback" id="status_msg">
                       </div>
                     </div>
                   </div>

@@ -10,6 +10,8 @@ use App\Models\User;
 use Validator;
 use DataTables;
 use Auth;
+use App\Models\Donor;
+use Rakibhstu\Banglanumber\NumberToBangla;
 class CollectionController extends Controller
 {
     /**
@@ -113,11 +115,12 @@ class CollectionController extends Controller
             $collection->sri_thakur_vog=$request->sri_thakur_vog;
             $collection->ananda_bazar=$request->ananda_bazar;
             $collection->various=$request->various;
-            $collection->total=$request->various+$request->sostoyoni+$request->istovriti+$request->dokkhina+$request->songothoni+$request->pronami+$request->advertisement+$request->mandir_construction;
+            $collection->total=$request->various+$request->sostoyoni+$request->istovriti+$request->dokkhina+$request->songothoni+$request->pronami+$request->advertisement+$request->mandir_construction+$request->kristi_bandhob+$request->sri_thakur_vog+$request->ananda_bazar;
             $collection->author_id=auth()->user()->id;
             $collection->save();
             $ammount=explode(',',$request->rittiki_ammount);
             $i=0;
+            $total_amt=0;
             foreach(explode(',',$request->rittiki) as $data){
                 $rittiki_relations=new RittikiRelation;
                 $rittiki_relations->collection_id=$collection->id;
@@ -126,9 +129,11 @@ class CollectionController extends Controller
                 $rittiki_relations->donor_id=$collection->donor_id;
                 $rittiki_relations->author_id=auth()->user()->id;
                 $rittiki_relations->save();
+                $total_amt+=$ammount[$i];
                 $i++;
             }
             if ($collection){
+                $this->sendSms($collection->donor_id,$collection->total+$total_amt);
                 return response()->json(['message'=>'Donor Added Success']);
             }
         }
@@ -221,6 +226,7 @@ class CollectionController extends Controller
                 
             }
             if ($collection){
+                
                 return response()->json(['message'=>'Collection Updated Success']);
             }
         }
@@ -241,5 +247,36 @@ class CollectionController extends Controller
         }else{
             return response()->json(['warning'=>'কিছু একটা ভুল করেছেন']);
         }
+    }
+
+
+    public function sendSms($user_id,$total)
+    {
+        $bangla=new NumberToBangla;
+        $api_key="C20081826072b4bc932d35.83708572";
+        $sender_id="8809601000185";
+        $donor=Donor::where('id',$user_id)->first();
+        $contacts=$donor->mobile;
+        $type="application/json";
+        $msg="ধন্যবাদ অর্ঘ্য প্রস্ব্যস্তিতে আপনার অনুদানটি গ্রহন করা হয়েছে আপনি দিয়েছেন মোট ".$bangla->bnNum(number_format($total,2,'.',''))." টাকা";
+        $fields='api_key='.$api_key.'&type='.$type.'&contacts='.$contacts.'&senderid='.$sender_id.'&msg='.$msg;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,"https://esms.mimsms.com/smsapi");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$fields);
+        // In real life you should use something like:
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, 
+        //          http_build_query(array('postvar1' => 'value1')));
+        // Receive server response ...
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $server_output = curl_exec($ch);
+        curl_close ($ch);
+        // Further processing ...
+        return $server_output;
+        // if ($server_output == "OK") { 
+
+        //  } else { 
+             
+        //  }
     }
 }

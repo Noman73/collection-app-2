@@ -341,6 +341,9 @@ function totalCount(){
   advertisement=parseInt($('#advertisement').val());
   mandir_construction=parseInt($('#mandir_construction').val());
   various=parseInt($('#various').val());
+  kristi_bandhob=parseInt($('#kristi_bandhob').val());
+  sri_thakur_vog=parseInt($('#sri_thakur_vog').val());
+  ananda_bazar=parseInt($('#ananda_bazar').val());
   rittiki_ammount=0;
   (isNaN(sostoyoni) ? sostoyoni=0 : sostoyoni);
   (isNaN(istovriti) ? istovriti=0 : istovriti);
@@ -349,9 +352,12 @@ function totalCount(){
   (isNaN(pronami) ? pronami=0 : pronami);
   (isNaN(advertisement) ? advertisement=0 : advertisement);
   (isNaN(mandir_construction) ? mandir_construction=0 : mandir_construction);
+  (isNaN(kristi_bandhob) ? kristi_bandhob=0 : kristi_bandhob);
+  (isNaN(sri_thakur_vog) ? sri_thakur_vog=0 : sri_thakur_vog);
+  (isNaN(ananda_bazar) ? ananda_bazar=0 : ananda_bazar);
   (isNaN(various) ? various=0 : various);
   console.log(sostoyoni,istovriti,dokkhina,songothoni,pronami,advertisement,mandir_construction,various)
-  total_ammount=sostoyoni+istovriti+dokkhina+songothoni+pronami+advertisement+mandir_construction+various;
+  total_ammount=sostoyoni+istovriti+dokkhina+songothoni+pronami+advertisement+mandir_construction+kristi_bandhob+sri_thakur_vog+ananda_bazar+various;
   $("input[name='rittiki_ammount[]']")
   .map(function(){
     amount=parseInt($(this).val());
@@ -360,7 +366,7 @@ function totalCount(){
     }
     // console.log($(this).val());
     rittiki_ammount+= amount;
-    $('#total').val(total_ammount+rittiki_ammount);
+    $('#total').val((total_ammount+rittiki_ammount).toFixed(2));
   });
 }
 $(document).on('change keyup','input',function(){

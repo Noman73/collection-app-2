@@ -31,9 +31,7 @@
 					<img style="width: 105px;height:120px;margin:0 auto" class="img-fluid circle d-block" src="{{asset('storage/adminlte/dist/img/logo.jpg')}}" alt="Logo">
 					<div class="text-center">প্রিয়পরম শ্রীশ্রীঠাকুর অনুকূলচন্দ্র সৎসঙ্গ ফাউন্ডেশন, বাংলাদেশ<br/>Email: satsangfoundationbd@gmail.com<br/>মোবাইলঃ-০১৭৫৯১০৭৩০৫
 					</div>
-
 				</div>
-				
 				<marquee class="mb-4 mt-2" behavior="scroll" direction="left">{{App\Models\Scrolling::first()->description}}</marquee>
 				<div class="login100-pic js-tilt" data-tilt>
 					<img src="{{asset('storage/adminlte/dist/img/onukul.jpg')}}" alt="IMG">
@@ -45,6 +43,9 @@
 						<div class="alert alert-danger">{{ $message }}</div>
 					@enderror
 					@error('password')
+						<div class="alert alert-danger">{{ $message }}</div>
+					@enderror
+					@error('status')
 						<div class="alert alert-danger">{{ $message }}</div>
 					@enderror
 					<div class="wrap-input100 validate-input" data-validate = "Valid mobile is required: ex@abc.xyz">
@@ -61,7 +62,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100 @error('password') is-invalid @enderror" type="password" name="password" placeholder="Password">
+						<input class="input100 @error('password') is-invalid @enderror" type="password" name="password" id="password" placeholder="Password">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -72,7 +73,10 @@
                             </span>
                         @enderror
 					</div>
-					
+					<div class="input-group">
+						<label for="">show</label>
+						<input type="checkbox" class="ml-1 mt-1" id="password-show">
+					</div>
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
 							Login
@@ -80,11 +84,9 @@
 					</div>
 
 					<div class="text-center p-t-12">
-						<span class="txt1">
-							Forgot
-						</span>
+						
 						<a class="txt2" href="{{ route('password.request') }}">
-							Username / Password?
+							পাসওয়ার্ড ভূলে গিয়েছেন ?
 						</a>
 					</div>
 
@@ -114,5 +116,15 @@
 	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	<script>
+		$('#password-show').change(function(){
+			console.log(this.checked);
+			if(this.checked){
+				$('#password').attr('type','text');
+			}else{
+				$('#password').attr('type','password');
+			}
+		})
+	</script>
 </body>
 </html>

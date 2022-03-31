@@ -48,6 +48,18 @@
               name:'mandir_construction',
             },
             {
+              data:'kristi_bandhob',
+              name:'kristi_bandhob',
+            },
+            {
+              data:'sri_thakur_vog',
+              name:'sri_thakur_vog',
+            },
+            {
+              data:'ananda_bazar',
+              name:'ananda_bazar',
+            },
+            {
               data:'various',
               name:'various',
             },
