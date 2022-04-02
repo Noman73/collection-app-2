@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ScrollingController;
 use App\Http\Controllers\Admin\PasswordResetController;
 use App\Http\Controllers\Admin\ExpenceAreaController;
 use App\Http\Controllers\Admin\ExpenceController;
+use App\Http\Controllers\Admin\BalanceSheetController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,13 +43,19 @@ Route::group(['middleware'=>'isBaned'],function(){
     Route::resource('/user', UserController::class);
     Route::resource('/expence_area',ExpenceAreaController::class);
     Route::resource('/expence',ExpenceController::class);
+    Route::get('/balance_sheet',[BalanceSheetController::class,'getForm']);
+    Route::post('/balance_sheet_data',[BalanceSheetController::class,'getData']);
     Route::post('/get-role',[RoleController::class,'getRole']);
     Route::post('/get-rittiki',[RittikiController::class,'getRittiki']);
+    Route::post('/get-expence-area',[ExpenceAreaController::class,'getExpenceArea']);
     Route::post('/get-collector',[SubmissionController::class,'getCollector']);
     Route::get('/collector-data',[CollectorController::class,'getData']);
     Route::get('/own-collection-data',[CollectorController::class,'getData']);
     Route::get('/scrolling-text',[ScrollingController::class,'showForm']);
     Route::post('/scrolling-text',[ScrollingController::class,'store'])->name('scrolling.store');
     Route::get('/password-reset',[PasswordResetController::class,'form']);
-    Route::get('/reset-otp',[PasswordResetController::class,'otpForm']);
+    Route::get('/reset-otp',[PasswordResetController::class,'otpForm'])->name('password.send.code');
+    Route::post('/reset-otp',[PasswordResetController::class,'sendOtp'])->name('password.reset.otp');
+    Route::post('/password-update',[PasswordResetController::class,'resetPassword'])->name('password.custom.update');
+
 });

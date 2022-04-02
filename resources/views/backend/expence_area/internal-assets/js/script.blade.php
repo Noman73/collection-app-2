@@ -6,7 +6,7 @@
         serverSide:true,
         responsive:true,
         ajax:{
-          url:"{{route('donor.index')}}"
+          url:"{{route('expence_area.index')}}"
         },
         columns:[
           {
@@ -18,14 +18,6 @@
           {
             data:'name',
             name:'name',
-          },
-          {
-            data:'adress',
-            name:'adress',
-          },
-          {
-            data:'mobile',
-            name:'mobile',
           },
           {
             data:'action',
@@ -92,7 +84,7 @@ $(document).delegate(".editRow", "click", function(){
       var editKeys=Object.keys(data.data);
       editKeys.forEach(function(key){
         if(key=='name'){
-          $('#'+'name').val(data.data[key]);
+          $('#'+'expence_area').val(data.data[key]);
         }
         if(key=='category_id'){
           $('#category').val(data.data[key]).niceSelect('update');

@@ -219,7 +219,7 @@
             $sri_thakur_vog=number_format($data->sum('sri_thakur_vog'),2,'.','');
             $ananda_bazar=number_format($data->sum('ananda_bazar'),2,'.','');
             $various=number_format($data->sum('various'),2,'.','');
-            $total=$sostoyoni+$istovriti+$dokkhina+$songothoni+$pronami+$advertise+$mandir_construction+$mandir_construction+$kristi_bandhob+$sri_thakur_vog+$ananda_bazar+$various+$rittiki;
+            $total=$sostoyoni+$istovriti+$dokkhina+$songothoni+$pronami+$advertise+$mandir_construction+$kristi_bandhob+$sri_thakur_vog+$ananda_bazar+$various+$rittiki;
             
             @endphp
             <div class="col-lg-3 col-6">
@@ -248,6 +248,8 @@
                 <a href="{{URL::to('/collection')}}" class="small-box-footer text-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
+
+            @role('collector')
             <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-purple">
@@ -261,6 +263,7 @@
                 <a href="{{URL::to('/collection')}}" class="small-box-footer text-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
+            @endrole
             <!-- ./col -->
           </div>
       </div><!-- /.container-fluid -->

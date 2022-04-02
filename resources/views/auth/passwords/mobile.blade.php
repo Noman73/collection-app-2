@@ -22,14 +22,18 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-    
+                        @if (session('mobile'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('mobile') }}
+                            </div>
+                        @endif
                         <form method="POST" action="{{ route('password.reset.otp') }}">
                             @csrf
                             <div class="row mb-3">
                                 <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('মোবাইল নাম্বারটি প্রদান করুন') }}</label>
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                    @error('email')
+                                    <input id="mobile" type="number" class="form-control @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autocomplete="email" autofocus>
+                                    @error('mobile')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

@@ -6,7 +6,7 @@
         serverSide:true,
         responsive:true,
         ajax:{
-          url:"{{route('donor.index')}}"
+          url:"{{route('expence.index')}}"
         },
         columns:[
           {
@@ -20,12 +20,8 @@
             name:'name',
           },
           {
-            data:'adress',
-            name:'adress',
-          },
-          {
-            data:'mobile',
-            name:'mobile',
+            data:'ammount',
+            name:'ammount',
           },
           {
             data:'action',
@@ -39,9 +35,11 @@
 window.formRequest= function(){
     $('input,select').removeClass('is-invalid');
     let expence_area=$('#expence_area').val();
+    let ammount=$('#ammount').val();
     let id=$('#id').val();
     let formData= new FormData();
     formData.append('expence_area',expence_area);
+    formData.append('ammount',ammount);
     $('#exampleModalLabel').text('ব্যয়ের খাত হালনাগাত করুন');
     if(id!=''){
       formData.append('_method','PUT');
@@ -91,13 +89,15 @@ $(document).delegate(".editRow", "click", function(){
     .then((data)=>{
       var editKeys=Object.keys(data.data);
       editKeys.forEach(function(key){
-        if(key=='name'){
-          $('#'+'name').val(data.data[key]);
-        }
+        
         if(key=='category_id'){
           $('#category').val(data.data[key]).niceSelect('update');
         }
          $('#'+key).val(data.data[key]);
+         if(key=='expence_area'){
+          console.log('ok',data.data[key].name)
+          $('#expence_area').html("<option value='"+data.data[key].id+"'>"+data.data[key].name+"</option>");
+        }
          $('#modal').modal('show');
          $('#id').val(data.data.id);
       })
@@ -132,4 +132,28 @@ function clear(){
   $(".invalid-feedback").text('');
   $('form select').val('').niceSelect('update');
 }
+
+$("#expence_area").select2({
+    theme:'bootstrap4',
+    placeholder:'select',
+    allowClear:true,
+    ajax:{
+      url:"{{URL::to('/get-expence-area')}}",
+      type:'post',
+      dataType:'json',
+      delay:20,
+      data:function(params){
+        return {
+          searchTerm:params.term,
+          _token:"{{csrf_token()}}",
+          }
+      },
+      processResults:function(response){
+        return {
+          results:response,
+        }
+      },
+      cache:true,
+    }
+  })
 </script>

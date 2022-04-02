@@ -44,6 +44,7 @@
                   <tr>
                     <th>আইডি</th>
                     <th>নাম</th>
+                    <th>টাকার পরিমান</th>
                     <th>এ্যাকশন</th>
                   </tr>
                 </thead>
@@ -70,7 +71,9 @@
                   <div class="col-md-8 mr-auto ml-auto">
                     <div class="form-group">
                       <label for="recipient-name" class="col-form-label">খাতের নাম:</label>
-                      <input type="text" class="form-control" id="expence_area" placeholder="ব্যয়ের খাত লিখুন">
+                      <select class="form-control" name="" id="expence_area">
+                        <option value="">--option--</option>
+                      </select>
                       <div class="invalid-feedback" id="expence_area_msg">
                       </div>
                     </div>
@@ -78,7 +81,7 @@
                   <div class="col-md-8 mr-auto ml-auto">
                     <div class="form-group">
                       <label for="recipient-name" class="col-form-label">টাকার পরিমান:</label>
-                      <input type="text" class="form-control" id="ammount" placeholder="ব্যয়ের খাত লিখুন">
+                      <input type="number" class="form-control" id="ammount" placeholder="ব্যয়ের খাত লিখুন">
                       <div class="invalid-feedback" id="ammount_msg">
                       </div>
                     </div>
@@ -103,5 +106,5 @@
   <script src="{{('storage/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
   <script src="{{('storage/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.0/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  @include('backend.expence_area.internal-assets.js.script')
+  @include('backend.expence.internal-assets.js.script')
   @endsection

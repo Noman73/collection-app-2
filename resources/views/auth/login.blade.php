@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V1</title>
+	<title>অর্ঘ্য প্রস্ব্যস্তি</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -79,23 +79,23 @@
 					</div>
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
-							Login
+							প্রবেশ করুন
 						</button>
 					</div>
 
 					<div class="text-center p-t-12">
 						
-						<a class="txt2" href="{{ route('password.request') }}">
+						<a class="txt2" href="{{ route('password.send.code') }}">
 							পাসওয়ার্ড ভূলে গিয়েছেন ?
 						</a>
 					</div>
-
+{{-- 
 					<div class="text-center p-t-136">
 						<a class="txt2" href="#">
 							Create your Account
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>
-					</div>
+					</div> --}}
 				</form>
 			</div>
 		</div>

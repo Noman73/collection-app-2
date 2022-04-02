@@ -15,16 +15,18 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
+                   
                     <div class="card-header">{{ __('রিসেট পাসওয়ার্ড') }}</div>
     
                     <div class="card-body">
-                        <form method="POST" action="{{ route('password.update') }}">
+                        <form method="POST" action="{{ route('password.custom.update') }}">
                             @csrf
+                            <input type="hidden" name="mobile" value="{{$contacts}}">
                             <div class="row mb-3">
                                 <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('ওটিপি কোড প্রদান করুন') }}</label>
     
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control @error('otp') is-invalid @enderror" name="otp" value="{{ $email ?? old('otp') }}" required autocomplete="otp" autofocus>
+                                    <input id="otp" type="otp" class="form-control @error('otp') is-invalid @enderror" name="otp" value="{{ $email ?? old('otp') }}" required autocomplete="otp" autofocus>
     
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
